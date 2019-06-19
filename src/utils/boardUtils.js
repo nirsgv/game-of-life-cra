@@ -83,9 +83,7 @@ class boardUtils {
         let activeNeighbours = 0;
         for (let i = -1; i <= 1; i++) {
             for (let j = -1; j <= 1; j++) {
-                if (i === 0 && j === 0) {
-                    continue;
-                }
+                if (i === 0 && j === 0) {continue;}
                 let curRow = rowIndex + i, curColumn = columnIndex + j;
                 curRow = this.checkVerticalEdge(curRow,curColumn,board);
                 curColumn = this.checkHorizontalEdge(curRow,curColumn,board);
