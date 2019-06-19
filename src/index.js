@@ -5,8 +5,8 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 const initialState = {
-  rows: 5,
-  columns: 5
+  rows: 30,
+  columns: 50
 };
 
 

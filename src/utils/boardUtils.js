@@ -69,9 +69,10 @@ class boardUtils {
     };
 
     populateNextGeneration = (board) => {
-        const newBoard = board.map((row, rowIndex) =>
+        const clone = JSON.parse(JSON.stringify(board));
+        let activeNeighboursCount;
+        const newBoard = clone.map((row, rowIndex) =>
             row.map((column, columnIndex) => {
-                let activeNeighboursCount = 0;
                 activeNeighboursCount = this.countNeighbours(board, rowIndex, columnIndex);
                 return Object.assign(column, {cellActive: this.willCellExist(column.cellActive, activeNeighboursCount)})
             }));
@@ -85,12 +86,9 @@ class boardUtils {
                 if (i === 0 && j === 0) {
                     continue;
                 }
-                let curRow, curColumn;
-                curRow = rowIndex + i;
-                curColumn = columnIndex + j;
+                let curRow = rowIndex + i, curColumn = columnIndex + j;
                 curRow = this.checkVerticalEdge(curRow,curColumn,board);
                 curColumn = this.checkHorizontalEdge(curRow,curColumn,board);
-
                 if (board[curRow][curColumn] && board[curRow][curColumn].cellActive) {
                     activeNeighbours++;
                 }
