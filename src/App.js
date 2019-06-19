@@ -29,8 +29,7 @@ class App extends React.Component {
 
     animate = (speed) => {
         return setInterval(function(){
-            console.log(this);
-            this.setState({board:boardUtils.randomBoard(this.state.board)});
+            this.setState({board:boardUtils.populateNextGeneration(this.state.board)});
         }.bind(this), Math.floor(speed));
     };
 

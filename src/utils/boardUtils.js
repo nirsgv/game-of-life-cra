@@ -40,6 +40,26 @@ class boardUtils {
         return newBoard;
     };
 
+    checkHorizontalEdge = (curRow, curColumn, curBoard) => {
+        if (curColumn === -1) {
+            curColumn = curBoard[curRow].length - 1
+        }
+        if (curColumn >= curBoard[curRow].length) {
+            curColumn = curColumn - curBoard[curRow].length;
+        }
+        return curColumn;
+    };
+
+    checkVerticalEdge = (curRow, curColumn, curBoard) => {
+        if (curRow === -1) {
+            curRow = curBoard.length - 1;
+        }
+        if (curRow >= curBoard.length) {
+            curRow = curRow - curBoard.length;
+        }
+        return curRow;
+    };
+
     randomBoard = (board) => {
         const newBoard = board.map((row) =>
             row.map((column) => {
@@ -47,6 +67,44 @@ class boardUtils {
             }));
         return newBoard;
     };
+
+    populateNextGeneration = (board) => {
+        const newBoard = board.map((row, rowIndex) =>
+            row.map((column, columnIndex) => {
+                let activeNeighboursCount = 0;
+                activeNeighboursCount = this.countNeighbours(board, rowIndex, columnIndex);
+                return Object.assign(column, {cellActive: this.willCellExist(column.cellActive, activeNeighboursCount)})
+            }));
+        return newBoard;
+    };
+
+    countNeighbours = (board, rowIndex, columnIndex) => {
+        let activeNeighbours = 0;
+        for (let i = -1; i <= 1; i++) {
+            for (let j = -1; j <= 1; j++) {
+                if (i === 0 && j === 0) {
+                    continue;
+                }
+                let curRow, curColumn;
+                curRow = rowIndex + i;
+                curColumn = columnIndex + j;
+                curRow = this.checkVerticalEdge(curRow,curColumn,board);
+                curColumn = this.checkHorizontalEdge(curRow,curColumn,board);
+
+                if (board[curRow][curColumn] && board[curRow][curColumn].cellActive) {
+                    activeNeighbours++;
+                }
+            }
+        }
+        return activeNeighbours;
+    };
+
+    willCellExist = (cellActive, activeNeighboursCount) => {
+        return cellActive
+            ? (!(activeNeighboursCount < 2 || activeNeighboursCount > 3))
+            : (activeNeighboursCount === 3)
+    };
+
 }
 
 export default new boardUtils();
