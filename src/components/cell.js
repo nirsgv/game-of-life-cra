@@ -7,7 +7,7 @@ const Cell = (props) => {
     return (
     <th
         onClick={() => toggleActive(rowIndex, columnIndex)}
-        onMouseEnter={() => toggleHighlight(rowIndex, columnIndex,true)}
+        onMouseEnter={() => toggleHighlight(rowIndex, columnIndex, true)}
         className={`${cellInfo.cellActive ? 'active' : ''} ${cellInfo.cellHighlight ? 'highlight' : ''}`}
         data-test="cell"
     >

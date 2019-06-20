@@ -11,7 +11,7 @@ class App extends React.Component {
             columns: this.props.columns,
             board: null,
             intervalHolder: null,
-            speed: 100
+            speed: 60
         };
         this.state.board = boardUtils.genInitialBoard(this.state.rows, this.state.columns);
     }
@@ -46,13 +46,32 @@ class App extends React.Component {
         this.setState({board:boardUtils.toggleHighlight(rowIndex, columnIndex, this.state.board)});
     };
 
+    changeBoardSize = (val, rowColumnSwitch) => {
+        const inputVal = Number(val);
+        if (rowColumnSwitch === 'rows') {
+            this.setState({
+                rows:Number(val),
+                board:boardUtils.changeBoardSize(this.state.board, inputVal, this.state.columns)
+            });
+        } else {
+            this.setState({
+                columns:Number(val),
+                board:boardUtils.changeBoardSize(this.state.board, this.state.rows, inputVal)
+            });
+        }
+    };
+
     render() {
 
         return (
             <div className="App" data-test="app-container">
-                <button onClick={() => this.setState({board:boardUtils.randomBoard(this.state.board)})}>random</button>
-                <button onClick={() => this.holdInterval(this.state.speed)}>animate</button>
-                <button onClick={() => this.clearInterval()}>clear</button>
+                <header>
+                    <button onClick={() => this.setState({board:boardUtils.randomBoard(this.state.board)})}>random</button>
+                    <button onClick={() => this.holdInterval(this.state.speed)}>animate</button>
+                    <button onClick={() => this.clearInterval()}>clear</button>
+                    <input type="number" value={this.state.rows} onChange={(e) => this.changeBoardSize(e.target.value, 'rows')}/>
+                    <input type="number" value={this.state.columns} onChange={(e) => this.changeBoardSize(e.target.value, 'columns')}/>
+                </header>
 
                 <Board {...this.state} toggleActive={this.toggleActive} toggleHighlight={this.toggleHighlight} />
 

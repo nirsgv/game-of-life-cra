@@ -101,6 +101,17 @@ class boardUtils {
             : (activeNeighboursCount === 3)
     };
 
+    changeBoardSize = (board, rowCount, columnCount) => {
+        const clone = JSON.parse(JSON.stringify(board));
+        console.log(3);
+        return Array.from({length: rowCount}).map((row, rowIndex, arr) =>
+            Array.from({length: columnCount}).map((column, columnIndex, arr) => {
+              return  board && board[rowIndex] && board[rowIndex][columnIndex]
+                  ? board[rowIndex][columnIndex]
+                  : new this.CellData(false,false);
+        }))
+    }
+
 }
 
 export default new boardUtils();
