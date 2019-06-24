@@ -102,10 +102,8 @@ class boardUtils {
     };
 
     changeBoardSize = (board, rowCount, columnCount) => {
-        const clone = JSON.parse(JSON.stringify(board));
-        console.log(3);
-        return Array.from({length: rowCount}).map((row, rowIndex, arr) =>
-            Array.from({length: columnCount}).map((column, columnIndex, arr) => {
+        return Array.from({length: rowCount}).map((row, rowIndex) =>
+            Array.from({length: columnCount}).map((column, columnIndex) => {
               return  board && board[rowIndex] && board[rowIndex][columnIndex]
                   ? board[rowIndex][columnIndex]
                   : new this.CellData(false,false);

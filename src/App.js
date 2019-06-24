@@ -69,8 +69,12 @@ class App extends React.Component {
                     <button onClick={() => this.setState({board:boardUtils.randomBoard(this.state.board)})}>random</button>
                     <button onClick={() => this.holdInterval(this.state.speed)}>animate</button>
                     <button onClick={() => this.clearInterval()}>clear</button>
-                    <input type="number" value={this.state.rows} onChange={(e) => this.changeBoardSize(e.target.value, 'rows')}/>
-                    <input type="number" value={this.state.columns} onChange={(e) => this.changeBoardSize(e.target.value, 'columns')}/>
+                    <label htmlFor="rows-num-field">Rows</label>
+                    <input type="number" id="rows-num-field" value={this.state.rows} onChange={(e) => this.changeBoardSize(e.target.value, 'rows')}/>
+                    <label htmlFor="columns-num-field">Columns</label>
+                    <input type="number" id="columns-num-field" value={this.state.columns} onChange={(e) => this.changeBoardSize(e.target.value, 'columns')}/>
+                    <label htmlFor="fps-num-field">Speed</label>
+                    <input type="number" id="fps-num-field" value={this.state.columns} onChange={(e) => this.changeBoardSize(e.target.value, 'columns')}/>
                 </header>
 
                 <Board {...this.state} toggleActive={this.toggleActive} toggleHighlight={this.toggleHighlight} />
