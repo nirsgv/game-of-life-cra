@@ -17,27 +17,25 @@ class boardUtils {
     };
 
     toggleActive = (rowIndex, columnIndex,board) => {
-        const newBoard = board.map((row, localRowIndex, arr) =>
+        return board.map((row, localRowIndex, arr) =>
             row.map((column, localColumnIndex, arr) => {
                 if (localRowIndex === rowIndex && localColumnIndex === columnIndex) {
                     return Object.assign(column, {cellActive: !column.cellActive})
                 } else {
                     return column;
                 }
-            }));
-        return newBoard;
+        }));
     };
 
     toggleHighlight = (rowIndex, columnIndex, board) => {
-        const newBoard = board.map((row, localRowIndex, arr) =>
+        return board.map((row, localRowIndex, arr) =>
             row.map((column, localColumnIndex, arr) => {
                 if (localRowIndex === rowIndex && localColumnIndex === columnIndex) {
                     return Object.assign(column, {cellHighlight: true})
                 } else {
                     return Object.assign(column, {cellHighlight: false})
                 }
-            }));
-        return newBoard;
+        }));
     };
 
     checkHorizontalEdge = (curRow, curColumn, curBoard) => {
