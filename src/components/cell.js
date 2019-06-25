@@ -1,5 +1,4 @@
 import React from 'react';
-import boardUtils from "../utils/boardUtils";
 
 
 const Cell = (props) => {
