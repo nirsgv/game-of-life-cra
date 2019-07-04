@@ -14,13 +14,12 @@ class Cell extends React.Component {
     consologSomething = (val) => {
         console.log('something');
         //this.props.paintCreature(val[0], val[1], 'block');
-
     };
 
     itemDraggedOver = (e, val) => {
         e.preventDefault();
         //console.log(val);
-        this.throttledFunc(val);
+        //this.throttledFunc(val);
         //this.props.paintCreature(this.props.rowIndex, this.props.columnIndex, 'block');
     };
 
@@ -43,7 +42,7 @@ class Cell extends React.Component {
 
         return (
             <th
-                onClick={() => toggleActive(rowIndex, columnIndex)}
+                onClick={isFromMainBoard ? (e) => toggleActive(rowIndex, columnIndex) : undefined}
                 onMouseEnter={isFromMainBoard ? (e) => this.toggleSelfHighlight(e,true) : undefined}
                 onMouseLeave={isFromMainBoard ? (e) => this.toggleSelfHighlight(e,false) : undefined}
                 onDragOver={isFromMainBoard ? (e) => this.itemDraggedOver(e, [rowIndex, columnIndex]) : undefined}

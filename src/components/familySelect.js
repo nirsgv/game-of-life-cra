@@ -5,15 +5,15 @@ import boardUtils from "../utils/boardUtils";
 const FamilySelect = (props) => {
     const { familiesTitles, familyTitle, onClickCallback } = props;
     return (
-        <>
+        <ul className='list inline-list'>
             {familiesTitles.map((item) =>
-                <span className={familyTitle === item ? 'active' : ''}
+                <li className={familyTitle === item ? 'active' : ''}
                     onClick={() => onClickCallback(item)}
                     key={boardUtils.genId()}
                 >
                     {item}
-                </span>)}
-        </>
+                </li>)}
+        </ul>
     )
 };
 export default FamilySelect;

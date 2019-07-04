@@ -116,10 +116,29 @@ class boardUtils {
         return curRow;
     };
 
-    randomBoard = (board) => {
+
+
+
+
+    /**
+     * Toggles individual cell active state.
+     * @param {array} board - complete 2d matrix board ( array of array of objects )
+     * @param {string} color - 'random', 'fill', 'clear'
+     * @returns {array} ( array of array of objects )
+     */
+    colorBoard = (board, color) => {
+        const _getColoring = function(colorStyle) {
+            switch (colorStyle) {
+                case 'random': return Boolean(Math.round(Math.random()));
+                case 'fill': return 1;
+                case 'clear': return 0;
+                default: return 0;
+            }
+        };
+
         const newBoard = board.map((row) =>
             row.map((column) => {
-                    return Object.assign(column, {cellActive: Boolean(Math.round(Math.random()))})
+                    return Object.assign(column, {cellActive: _getColoring(color)})
             }));
         return newBoard;
     };

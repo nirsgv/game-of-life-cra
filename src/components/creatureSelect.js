@@ -13,16 +13,16 @@ const CreatureSelect = (props) => {
     }
 
     return (
-        <>
+        <ul className='list inline-list'>
             {creaturesArrGroup.map((item,index) =>
-                <span key={boardUtils.genId()}
+                <li key={boardUtils.genId()}
                     className={creatureTitle === item ? 'active' : ''}
                     onClick={() => onClickCallback(item)}
                 >
                     {item}
-                </span>
+                </li>
             )}
-        </>
+        </ul>
     )
 };
 export default CreatureSelect;

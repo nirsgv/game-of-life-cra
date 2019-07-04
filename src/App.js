@@ -137,39 +137,55 @@ class App extends React.Component {
         return (
             <div className="App" data-test="app-container">
                 <header>
-                    <button onClick={() => this.setState({board:boardUtils.randomBoard(this.state.board)})}>random</button>
-                    <button onClick={() => this.holdInterval(this.state.speed)}>animate</button>
-                    <button onClick={() => this.clearInterval()}>clear</button>
-                    <NumField {...this.getProps('rows')} />
-                    <NumField {...this.getProps('columns')} />
-                    <NumField {...this.getProps('fps')} />
-
-                    <FamilySelect
-                        familiesTitles={this.state.familiesTitles}
-                        familyTitle={this.state.familyTitle}
-                        onClickCallback={(item) => this.chooseFamily(item)}
-                    />
-                    <CreatureSelect
-                        creatures={creatures}
-                        familyTitle={this.state.familyTitle}
-                        creatureTitle={this.state.creatureTitle}
-                        onClickCallback={(item) => this.chooseCreature(item)}
-                    />
-                    <DraggableCreature creatureTitle={this.state.creatureTitle}>
-                        <Board board = {this.state.creatureBoard}
-                               isMainBoard = {false}
-                        />
-                    </DraggableCreature>
+                    <div className="settings-speed">
+                        <button onClick={() => this.holdInterval(this.state.speed)}>animate</button>
+                        <button onClick={() => this.clearInterval()}>clear</button>
+                        <NumField {...this.getProps('fps')} />
+                    </div>
+                    <div className="settings-size">
+                        <NumField {...this.getProps('rows')} />
+                        <NumField {...this.getProps('columns')} />
+                    </div>
+                    <div className="settings-color">
+                        <button onClick={() => this.setState({board:boardUtils.colorBoard(this.state.board, 'random')})}>random</button>
+                        <button onClick={() => this.setState({board:boardUtils.colorBoard(this.state.board, 'fill')})}>fill</button>
+                        <button onClick={() => this.setState({board:boardUtils.colorBoard(this.state.board, 'clear')})}>clear</button>
+                    </div>
                 </header>
+                <main>
+                    <Board board = {this.state.board}
+                           toggleActive={this.toggleActive}
+                           toggleHighlight={this.toggleHighlight}
+                           paintCreature={this.paintCreature}
+                           highlightCreature={this.highlightCreature}
+                           isMainBoard = {true}
+                    />
+                </main>
+                <footer>
+                    <div className="creature-select--family">
+                        <FamilySelect
+                            familiesTitles={this.state.familiesTitles}
+                            familyTitle={this.state.familyTitle}
+                            onClickCallback={(item) => this.chooseFamily(item)}
+                        />
+                    </div>
 
-                <Board board = {this.state.board}
-                       toggleActive={this.toggleActive}
-                       toggleHighlight={this.toggleHighlight}
-                       paintCreature={this.paintCreature}
-                       highlightCreature={this.highlightCreature}
-                       isMainBoard = {true}
-                />
-
+                    <div className="creature-select--item">
+                        <CreatureSelect
+                            creatures={creatures}
+                            familyTitle={this.state.familyTitle}
+                            creatureTitle={this.state.creatureTitle}
+                            onClickCallback={(item) => this.chooseCreature(item)}
+                        />
+                    </div>
+                    <div className="creature-select--drag">
+                        <DraggableCreature creatureTitle={this.state.creatureTitle}>
+                            <Board board = {this.state.creatureBoard}
+                                   isMainBoard = {false}
+                            />
+                        </DraggableCreature>
+                    </div>
+                </footer>
             </div>
         );
     }
