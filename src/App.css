@@ -1,3 +1,31 @@
+:root {
+  --cell-color: gold;
+  --cell-highlighted: green;
+  --inactive: #aaa;
+  --active: #333;
+  --header-color: #f5f5f5;
+  --header-height: 100px;
+}
+
+table {
+  border: none;
+  border-collapse:collapse;
+  box-shadow: 0px 10px 60px #f1f1f1;
+}
+
+th {
+  background-color: transparent;
+  width: 10px;
+  height: 10px;
+}
+
+th.on {
+  background-color: var(--cell-color);
+}
+th.highlighted {
+  background-color: var(--cell-highlighted);
+}
+
 .App {
   text-align: center;
 }
@@ -8,4 +36,12 @@ th.active{
 
 th.highlight{
   background-color: red;
+}
+
+span {
+  color: #aaa;
+}
+
+span.active {
+  color: #333;
 }

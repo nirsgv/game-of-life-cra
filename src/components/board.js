@@ -3,10 +3,7 @@ import Cell from './cell';
 import boardUtils from "../utils/boardUtils";
 
 const Board = (props) => {
-
-    const {board} = props;
-    // const rowsArr = Array.from({length: rows});
-    // const columnsArr = Array.from({length: columns});
+    const { board, toggleActive, toggleHighlight, paintCreature, highlightCreature, isMainBoard } = props;
 
     return (
         <table>
@@ -17,11 +14,14 @@ const Board = (props) => {
                         <Cell key={boardUtils.genId()}
                               rowIndex={rowIndex}
                               columnIndex={columnIndex}
-                              toggleActive = {props.toggleActive}
-                              toggleHighlight={props.toggleHighlight}
+                              toggleActive = {toggleActive}
+                              toggleHighlight={toggleHighlight}
+                              paintCreature={paintCreature}
+                              highlightCreature={highlightCreature}
                               cellInfo = {column}
+                              isFromMainBoard = {isMainBoard}
                         />
-                        )}
+                    )}
                 </tr>)}
             </tbody>
         </table>

@@ -38,6 +38,64 @@ class boardUtils {
         }));
     };
 
+    getRowIndex = (index, startIndex, rowLen) => {
+        return index + startIndex < rowLen
+            ? index + startIndex
+            : (index + startIndex) - rowLen;
+    };
+
+    gen2ndArray = (rowLen, colLen, startIndex, shape) => {
+
+        const rowStartIndex = colLen - startIndex[0];
+        const columnStartIndex = rowLen - startIndex[1];
+
+        return Array.from({length: rowLen}).map((row,rowIndex,arr) =>
+            Array.from({length: colLen}).map((column,columnIndex,arr) => {
+                const shapeRowIndex = this.getRowIndex(rowIndex,rowStartIndex,rowLen);
+                const shapeColumnIndex = this.getRowIndex(columnIndex,columnStartIndex,colLen);
+                return (
+                    shape[shapeRowIndex] &&
+                    shape[shapeRowIndex][shapeColumnIndex] &&
+                    shape[shapeRowIndex][shapeColumnIndex] === 1 ? 1 : 0
+                );
+            })
+        )
+    };
+
+    paintCreature = (rowIndex, columnIndex, creatureStructure, board) => {
+
+        const equalToArr = this.gen2ndArray(board.length,board[0].length,[rowIndex, columnIndex],creatureStructure);
+
+        return board.map((row, localRowIndex, arr) =>
+            row.map((column, localColumnIndex, arr) => {
+                let toggled;
+                if (equalToArr[localRowIndex] &&
+                    equalToArr[localRowIndex][localColumnIndex]) {
+                        toggled = equalToArr[localRowIndex][localColumnIndex] === 1;
+                        return Object.assign(column, {cellActive: toggled});
+                } else {
+                    return column;
+                }
+            }));
+    };
+
+    highlightCreature = (rowIndex, columnIndex, creatureStructure, board) => {
+
+        const equalToArr = this.gen2ndArray(board.length,board[0].length,[rowIndex, columnIndex],creatureStructure);
+
+        return board.map((row, localRowIndex, arr) =>
+            row.map((column, localColumnIndex, arr) => {
+                let toggled;
+                if (equalToArr[localRowIndex] &&
+                    equalToArr[localRowIndex][localColumnIndex]) {
+                        toggled = equalToArr[localRowIndex][localColumnIndex] === 1;
+                        return Object.assign(column, {cellHighlight: toggled});
+                } else {
+                    return column;
+                }
+            }));
+    };
+
     checkHorizontalEdge = (curRow, curColumn, curBoard) => {
         if (curColumn === -1) {
             curColumn = curBoard[curRow].length - 1
@@ -106,6 +164,27 @@ class boardUtils {
                   ? board[rowIndex][columnIndex]
                   : new this.CellData(false,false);
         }))
+    };
+
+    generateFamilies = (creatures) => {
+        const families = [];
+
+        for (let key in creatures) {
+            if (!families.includes(creatures[key].kind)) {
+                families.push(creatures[key].kind)
+            }
+        }
+
+        return families;
+    };
+
+    pickFirstMember = (creatures, family) => {
+
+        for (let key in creatures) {
+            if (creatures[key].kind === family) {
+                return creatures[key].value;
+            }
+        }
     }
 
 }
