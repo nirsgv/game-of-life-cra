@@ -20,7 +20,7 @@ class boardUtils {
         return board.map((row, localRowIndex, arr) =>
             row.map((column, localColumnIndex, arr) => {
                 if (localRowIndex === rowIndex && localColumnIndex === columnIndex) {
-                    return Object.assign(column, {cellActive: !column.cellActive})
+                    return +(Boolean(column));
                 } else {
                     return column;
                 }
@@ -66,13 +66,13 @@ class boardUtils {
 
         const equalToArr = this.gen2ndArray(board.length,board[0].length,[rowIndex, columnIndex],creatureStructure);
 
-        return board.map((row, localRowIndex, arr) =>
-            row.map((column, localColumnIndex, arr) => {
+        return board.map((row, localRowIndex) =>
+            row.map((column, localColumnIndex) => {
                 let toggled;
                 if (equalToArr[localRowIndex] &&
                     equalToArr[localRowIndex][localColumnIndex]) {
                         toggled = equalToArr[localRowIndex][localColumnIndex] === 1;
-                        return Object.assign(column, {cellActive: toggled});
+                        return +(toggled);
                 } else {
                     return column;
                 }
@@ -89,7 +89,7 @@ class boardUtils {
                 if (equalToArr[localRowIndex] &&
                     equalToArr[localRowIndex][localColumnIndex]) {
                         toggled = equalToArr[localRowIndex][localColumnIndex] === 1;
-                        return Object.assign(column, {cellHighlight: toggled});
+                        return +(toggled);
                 } else {
                     return column;
                 }
@@ -119,7 +119,7 @@ class boardUtils {
     randomBoard = (board) => {
         const newBoard = board.map((row) =>
             row.map((column) => {
-                    return Object.assign(column, {cellActive: Boolean(Math.round(Math.random()))})
+                    return +(Boolean(Math.round(Math.random())))
             }));
         return newBoard;
     };
@@ -130,7 +130,7 @@ class boardUtils {
         const newBoard = clone.map((row, rowIndex) =>
             row.map((column, columnIndex) => {
                 activeNeighboursCount = this.countNeighbours(board, rowIndex, columnIndex);
-                return Object.assign(column, {cellActive: this.willCellExist(column.cellActive, activeNeighboursCount)})
+                return +(this.willCellExist(column.cellActive, activeNeighboursCount))
             }));
         return newBoard;
     };
@@ -143,7 +143,7 @@ class boardUtils {
                 let curRow = rowIndex + i, curColumn = columnIndex + j;
                 curRow = this.checkVerticalEdge(curRow,curColumn,board);
                 curColumn = this.checkHorizontalEdge(curRow,curColumn,board);
-                if (board[curRow][curColumn] && board[curRow][curColumn].cellActive) {
+                if (board[curRow][curColumn]) {
                     activeNeighbours++;
                 }
             }
@@ -162,7 +162,7 @@ class boardUtils {
             Array.from({length: columnCount}).map((column, columnIndex) => {
               return  board && board[rowIndex] && board[rowIndex][columnIndex]
                   ? board[rowIndex][columnIndex]
-                  : new this.CellData(false,false);
+                  : 0;
         }))
     };
 
